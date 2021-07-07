@@ -82,7 +82,8 @@ public class AlarmReceiver extends BroadcastReceiver {
        // 90 minutes.
 
         // here it will work when he wake up and every 90 min
-        if( currHour >wakeHour && currHour< sleepHour ) {
+        if( currHour>=wakeHour  &&  currHour<sleepHour ) {
+            if(currMin>=wakeMin && currMin<sleepMin)
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 90, alarmIntent);
         }
         else{
