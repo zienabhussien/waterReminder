@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class AlarmReceiver extends BroadcastReceiver {
- private MediaPlayer mediaPlayer ;
  private AlarmManager alarmManager;
  private PendingIntent alarmIntent;
  private String CHANNEL_ID = "channelId";
@@ -43,18 +42,37 @@ public class AlarmReceiver extends BroadcastReceiver {
        wakeupTime = hashMap.get(UserData.WAKEUP_TIME);
 
 
-        mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
-        mediaPlayer.start();
-
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, HomeFragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         alarmIntent = PendingIntent.getActivity(context,0,i,0);
 
         // TYPE OF ALARM
+
        String [] wakeTime = wakeupTime.split(":");
        int wakeHour = Integer.parseInt(wakeTime[0]);
        int wakeMin = Integer.parseInt(wakeTime[1]);
+       String wakeX = wakeupTime.substring(wakeupTime.length()-2);
+
+        String [] sleepTime = wakeupTime.split(":");
+        int sleepHour = Integer.parseInt(wakeTime[0]);
+        int sleepMin = Integer.parseInt(wakeTime[1]);
+        String sleepX = wakeupTime.substring(wakeupTime.length()-2);
+
+        String [] currentTime = currTime.split(":");
+        int currHour = Integer.parseInt(wakeTime[0]);
+        int currMin = Integer.parseInt(wakeTime[1]);
+        String currX = wakeupTime.substring(wakeupTime.length()-2);
+
+        if(wakeX.equals("pm")){
+            wakeHour +=12;
+        }
+        if(sleepX.equals("pm")){
+            wakeHour +=12;
+        }
+        if(currX.equals("pm")){
+            wakeHour +=12;
+        }
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -62,10 +80,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE,wakeMin);
         // setRepeating() lets you specify a precise custom interval--in this case,
        // 90 minutes.
-        // condition
-        // here it will work when he wake up and every 90 min
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 90, alarmIntent);
 
+        // here it will work when he wake up and every 90 min
+        if( currHour >wakeHour && currHour< sleepHour ) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 90, alarmIntent);
+        }
+        else{
+            alarmManager.cancel(alarmIntent);
+        }
 
 
         // Create notification channel
