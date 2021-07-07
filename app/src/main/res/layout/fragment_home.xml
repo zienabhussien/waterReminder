@@ -1,0 +1,138 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".tabFragments.HomeFragment"
+    android:orientation="vertical"
+    android:paddingTop="100dp">
+
+    <RelativeLayout
+        android:id="@+id/layout_main_waterwheel"
+        android:layout_width="match_parent"
+        android:layout_height="271dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--todo Change progress programmatically on click-->
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateOnly="false"
+            android:progress="0"
+            android:progressDrawable="@drawable/circle" />
+
+        <ImageButton
+            android:id="@+id/addCup_btn"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_alignBottom="@+id/progress_bar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="162dp"
+            android:layout_marginTop="71dp"
+            android:layout_marginEnd="157dp"
+            android:layout_marginBottom="57dp"
+            android:background="@drawable/glass"
+            android:contentDescription="Drink button"
+            android:src="@drawable/ic_add" />
+
+        <ImageButton
+            android:id="@+id/choose_cup"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="78dp"
+            android:layout_marginBottom="54dp"
+            android:background="@drawable/glass"
+            android:contentDescription="Drink button" />
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_main_waterwheel"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="338dp">
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="12dp"
+         >
+         <ImageView
+             android:id="@+id/hour_img"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/ic_baseline_history_toggle_off_24"
+             android:layout_marginRight="20dp"
+             android:layout_marginStart="10dp"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintEnd_toStartOf="@+id/nextTime"
+             android:layout_centerVertical="true"
+             />
+
+         <TextView
+             android:id="@+id/currentTime"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="08:00 PM"
+             app:layout_constraintStart_toEndOf="@id/hour_img"
+             app:layout_constraintTop_toTopOf="parent"
+             android:layout_marginStart="60dp"
+             android:textColor="@color/black"
+             android:textSize="16sp" />
+         <TextView
+             android:id="@+id/cup_size"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="150 ml"
+             android:layout_marginEnd="20dp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintBottom_toBottomOf="parent"
+             android:textColor="#858383"
+             android:layout_alignParentEnd="true"
+             android:textSize="16sp" />
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="12dp"
+             android:text="Next time"
+             android:textColor="#858383"
+             android:textSize="16sp"
+             app:layout_constraintEnd_toEndOf="@+id/currentTime"
+             app:layout_constraintStart_toStartOf="@+id/currentTime"
+             app:layout_constraintTop_toBottomOf="@id/currentTime" />
+
+     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_view"
+        app:layout_constraintTop_toBottomOf="@+id/cardview"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

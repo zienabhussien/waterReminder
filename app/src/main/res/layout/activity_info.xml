@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    tools:context="com.example.info.InfoActivity">
+    <TextView
+        android:layout_marginTop="30dp"
+        android:id="@+id/gender_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set gender"
+        android:textColor="#2196F3"
+        android:layout_marginLeft="30dp"
+        android:textSize="24sp"
+        android:layout_margin="12dp"
+        />
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:id="@+id/radioGroup">
+      <RadioButton
+          android:id="@+id/radioMale"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Male"
+          android:textColor="#03A9F4"
+          android:textSize="20sp"
+          android:checked="false"
+          />
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:checked="false"
+            />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/weight_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set  weight"
+        android:textColor="#2196F3"
+        android:textSize="24sp"
+        android:layout_margin="12dp"
+        />
+    <NumberPicker
+        android:id="@+id/numPicker_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="30dp"
+        android:text="Wake up &amp; Sleep time"
+        android:textColor="@color/purple_700"
+        android:textSize="24sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_margin="12dp">
+
+        <TextView
+            android:id="@+id/wakeupTime_tv"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/custom_imgbtn"
+            android:gravity="center"
+            android:text="7 : 00 AM"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bedTime_tv"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="70dp"
+            android:background="@drawable/custom_imgbtn"
+            android:gravity="center"
+            android:text="11 : 00 PM"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/startBtn"
+        android:layout_width="180dp"
+        android:layout_height="54dp"
+        android:layout_margin="40dp"
+        android:layout_gravity="center_horizontal"
+        android:text="START"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="#fff"
+        android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="18sp"
+        />
+</LinearLayout>
