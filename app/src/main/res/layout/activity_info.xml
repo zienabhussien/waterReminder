@@ -109,11 +109,11 @@
     <Button
         android:id="@+id/startBtn"
         android:layout_width="180dp"
-        android:layout_height="54dp"
+        android:layout_height="50dp"
         android:layout_margin="40dp"
         android:layout_gravity="center_horizontal"
         android:text="START"
-        android:backgroundTint="@color/purple_700"
+        android:background="@drawable/time_shape"
         android:textColor="#fff"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
         android:layout_marginRight="40dp"

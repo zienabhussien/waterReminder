@@ -19,10 +19,12 @@ import com.example.adapter.AlarmAdapter;
 import com.example.adapter.Item;
 import com.example.reminderapp.R;
 import com.example.reminderapp.databinding.FragmentHomeBinding;
+import com.example.userSession.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
@@ -30,15 +32,17 @@ import static java.lang.String.format;
 
 
 public class HomeFragment extends Fragment {
- View view;
  FragmentHomeBinding binding;
  AlarmAdapter alarmAdapter;
+ UserData userData;
  Item dataItem;
  ArrayList<Item> arrayList;
+    private int userWeight;
+    private String userGender;
     private int percent = 0;
     private int progressStatus = 0;
     private int cupSize = 120;  // taken from selection of any cup
-    private long drinkGoal = 2400;
+    private long drinkGoal ;
     private Handler handler = new Handler();
 
     @Override
@@ -55,6 +59,18 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
         dataItem = new Item();
         arrayList = new ArrayList<>();
+
+        // get stored user data
+        userData = new UserData(getActivity());
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap = userData.getUserData();
+        userWeight =Integer.parseInt( hashMap.get(UserData.WEIGHT_KEY)) ;
+        userGender = hashMap.get(UserData.GENDER_KEY);
+        if(userGender.equals("Male")){
+            drinkGoal = (long) (userWeight*(0.35));
+        }else{
+            drinkGoal = (long) (userWeight*(0.31));
+        }
 
         percent = (int)(cupSize/drinkGoal)*100;
 
