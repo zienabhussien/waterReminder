@@ -35,6 +35,18 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("Drink water reminder")
+                .setContentText("It's time to drink ")
+                .setAutoCancel(true)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(alarmIntent);
+
+
+
         UserData userData = new UserData(context);
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap = userData.getUserData();
@@ -47,7 +59,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         alarmIntent = PendingIntent.getActivity(context,0,i,0);
 
-        // TYPE OF ALARM
 
        String [] wakeTime = wakeupTime.split(":");
        int wakeHour = Integer.parseInt(wakeTime[0]);
@@ -74,17 +85,19 @@ public class AlarmReceiver extends BroadcastReceiver {
             wakeHour +=12;
         }
 
+
+        // TYPE OF ALARM
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY,wakeHour);
         calendar.set(Calendar.MINUTE,wakeMin);
-        // setRepeating() lets you specify a precise custom interval--in this case,
-       // 90 minutes.
 
         // here it will work when he wake up and every 90 min
         if( currHour>=wakeHour  &&  currHour<sleepHour ) {
             if(currMin>=wakeMin && currMin<sleepMin)
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 90, alarmIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    1000 * 60 * 90, alarmIntent);
+            notificationManager.notify(1,builder.build());
         }
         else{
             alarmManager.cancel(alarmIntent);
@@ -105,21 +118,12 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
 
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Drink water reminder")
-                .setContentText("It's time to drink ")
-                .setAutoCancel(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(alarmIntent);
 
-             notificationManager.notify(1,builder.build());
 
-        //NotificationManagerCompat notificationManagerCompat =  NotificationManagerCompat.from(context);
-       // notificationManagerCompat.notify(1,builder.build());
 
     }
+
+
 
     private String getCurrentTime(){
         return new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
