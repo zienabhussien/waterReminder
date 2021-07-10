@@ -65,24 +65,24 @@ public class AlarmReceiver extends BroadcastReceiver {
        int wakeMin = Integer.parseInt(wakeTime[1]);
        String wakeX = wakeupTime.substring(wakeupTime.length()-2);
 
-        String [] sleepTime = wakeupTime.split(":");
-        int sleepHour = Integer.parseInt(wakeTime[0]);
-        int sleepMin = Integer.parseInt(wakeTime[1]);
-        String sleepX = wakeupTime.substring(wakeupTime.length()-2);
+        String [] sleepTime = bedTime.split(":");
+        int sleepHour = Integer.parseInt(sleepTime[0]);
+        int sleepMin = Integer.parseInt(sleepTime[1]);
+        String sleepX = bedTime.substring(bedTime.length()-2);
 
         String [] currentTime = currTime.split(":");
-        int currHour = Integer.parseInt(wakeTime[0]);
-        int currMin = Integer.parseInt(wakeTime[1]);
-        String currX = wakeupTime.substring(wakeupTime.length()-2);
+        int currHour = Integer.parseInt(currentTime[0]);
+        int currMin = Integer.parseInt(currentTime[1]);
+        String currX = currTime.substring(currTime.length()-2);
 
         if(wakeX.equals("pm")){
             wakeHour +=12;
         }
         if(sleepX.equals("pm")){
-            wakeHour +=12;
+            sleepHour +=12;
         }
         if(currX.equals("pm")){
-            wakeHour +=12;
+            currHour +=12;
         }
 
 
@@ -95,12 +95,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         // here it will work when he wake up and every 90 min
         if( currHour>=wakeHour  &&  currHour<sleepHour ) {
             if(currMin>=wakeMin && currMin<sleepMin)
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    1000 * 60 * 90, alarmIntent);
+
             notificationManager.notify(1,builder.build());
-        }
-        else{
-            alarmManager.cancel(alarmIntent);
         }
 
 

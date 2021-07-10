@@ -2,4 +2,28 @@
     <string name="app_name">ReminderApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="weight">60 kg</string>
+    <string name="general">General</string>
+    <string name="unit">Unit</string>
+    <string name="unit_kg">Kg</string>
+    <string name="intake_goal">Intake goal</string>
+    <string name="real_intake_goal">1800 ml</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="personal_data">Personal data</string>
+    <string name="gender">Gender</string>
+    <string name="female">Female</string>
+    <string name="_weight">Weight</string>
+    <string name="wake_up_time">Wake-up time</string>
+    <string name="real_wake_up_time">08:00 am</string>
+    <string name="bedtime">Bedtime</string>
+    <string name="real_bedtime">12:00 pm</string>
+    <string name="reminder_settings">Reminder settings</string>
+    <string name="reminder_schedule">Reminder schedule</string>
+    <string name="reminder_sound">Reminder sound</string>
+    <string name="male">Male</string>
+    <string name="set_gender">Set gender</string>
+    <string name="set_weight">Set weight</string>
+    <string name="wake_up_amp_sleep_time"><![CDATA[Wake up & Sleep time]]></string>
+    <string name="start">START</string>
 </resources>

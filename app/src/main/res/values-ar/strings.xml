@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ReminderApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="weight"> 60 kg</string>
+    <string name="general">عام</string>
+    <string name="unit">وحدة</string>
+    <string name="unit_kg">كجم</string>
+    <string name="intake_goal">هدف الشرب</string>
+    <string name="real_intake_goal">1800 ml</string>
+    <string name="language">اللغة</string>
+    <string name="english">الانجليزية</string>
+    <string name="personal_data">بيانات شخصية</string>
+    <string name="gender">النوع</string>
+    <string name="female">انثى</string>
+    <string name="_weight">الوزن</string>
+    <string name="wake_up_time">وقت الاستيقاظ</string>
+    <string name="real_wake_up_time">08:00 am</string>
+    <string name="bedtime">وقت النوم</string>
+    <string name="real_bedtime">12:00 pm</string>
+    <string name="reminder_settings">اعدادات التذكير</string>
+    <string name="reminder_schedule">جدول التذكير</string>
+    <string name="reminder_sound">صوت التذكير</string>
+    <string name="male">Male</string>
+    <string name="set_gender">Set gender</string>
+    <string name="set_weight">Set weight</string>
+    <string name="wake_up_amp_sleep_time"><![CDATA[Wake up & Sleep time]]></string>
+    <string name="start">ابدأ</string>
+</resources>

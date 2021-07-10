@@ -4,7 +4,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,12 +18,18 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.alarm.AlarmReceiver;
 import com.example.reminderapp.MainActivity;
 import com.example.reminderapp.R;
 import com.example.reminderapp.databinding.ActivityInfoBinding;
+import com.example.reminderapp.tabFragments.HomeFragment;
 import com.example.userSession.UserData;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 
 import static com.example.reminderapp.R.color.purple_200;
 import static com.example.reminderapp.R.color.purple_700;
@@ -28,6 +37,9 @@ import static com.example.reminderapp.R.color.purple_700;
 public class InfoActivity extends AppCompatActivity {
  ActivityInfoBinding binding;
  UserData mUserData;
+ AlarmManager alarmManager;
+ Intent myIntent;
+
  int weight = 0;
  String bedTime;
  String wakeupTime;
@@ -42,10 +54,14 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         mUserData = new UserData(getApplicationContext());
 
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        myIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+
+
           getGender();
-          //  store gender
-         getWeight();
-        //  store weight
+          getWeight();
+            cancelAlarm();
+
 
         binding.wakeupTimeTv.setOnClickListener(v ->{
                   setWakeupTime();
@@ -108,6 +124,8 @@ public class InfoActivity extends AppCompatActivity {
                 },12,0,false);
         timePickerDialog.updateTime(bedTimeHour,bedTimeMin);
         timePickerDialog.show();
+
+        setAlarm();
     }
 
     private void setWakeupTime(){
@@ -126,5 +144,72 @@ public class InfoActivity extends AppCompatActivity {
 
            timePickerDialog.updateTime(wakeupTimeHour,wakeupTimeMin);
            timePickerDialog.show();
+
+           setAlarm();
+    }
+
+    private void cancelAlarm(){
+      PendingIntent  pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 1, myIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+    }
+
+    private void setAlarm(){
+        String currTime = getCurrentTime();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap = mUserData.getUserData();
+        bedTime = hashMap.get(UserData.WAKEUP_TIME);
+        wakeupTime = hashMap.get(UserData.WAKEUP_TIME);
+
+
+       // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      PendingIntent  alarmIntent = PendingIntent.getBroadcast(getApplicationContext(),1,myIntent,0);
+
+
+        String [] wakeTime = wakeupTime.split(":");
+        int wakeHour = Integer.parseInt(wakeTime[0]);
+        int wakeMin = Integer.parseInt(wakeTime[1]);
+        String wakeX = wakeupTime.substring(wakeupTime.length()-2);
+
+        String [] sleepTime = bedTime.split(":");
+        int sleepHour = Integer.parseInt(sleepTime[0]);
+        int sleepMin = Integer.parseInt(sleepTime[1]);
+        String sleepX = bedTime.substring(bedTime.length()-2);
+
+        String [] currentTime = currTime.split(":");
+        int currHour = Integer.parseInt(currentTime[0]);
+        int currMin = Integer.parseInt(currentTime[1]);
+        String currX = currTime.substring(currTime.length()-2);
+
+        if(wakeX.equals("pm")){
+            wakeHour +=12;
+        }
+        if(sleepX.equals("pm")){
+            sleepHour +=12;
+        }
+        if(currX.equals("pm")){
+            currHour +=12;
+        }
+
+
+        // TYPE OF ALARM
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY,wakeHour);
+        calendar.set(Calendar.MINUTE,wakeMin);
+
+        // here it will work when he wake up and every 90 min
+        if( currHour>=wakeHour  &&  currHour<sleepHour ) {
+            if(currMin>=wakeMin && currMin<sleepMin)
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                        1000 * 60 * 90, alarmIntent);
+        }
+
+    }
+
+    private String getCurrentTime(){
+        return new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
     }
 }

@@ -9,9 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.reminderapp.R;
+import com.example.reminderapp.databinding.FragmentSettingBinding;
+import com.example.userSession.UserData;
+
+import java.util.HashMap;
 
 public class SettingFragment extends Fragment {
-   View view;
+   FragmentSettingBinding binding;
+   UserData userData;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +26,14 @@ public class SettingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_setting, container, false);
-        return view;
+        binding = FragmentSettingBinding.inflate(getLayoutInflater());
+        userData = new UserData(getActivity());
+        HashMap<String , String> hashMap = new HashMap<>();
+        binding.genderSetting.setText(hashMap.get(UserData.GENDER_KEY));
+        binding.wakeUpTimeSetting.setText(hashMap.get(UserData.WAKEUP_TIME));
+        binding.bedTimeSetting.setText(hashMap.get(UserData.BED_TIME));
+        binding.genderWeight.setText(hashMap.get(UserData.WEIGHT_KEY));
+
+        return binding.getRoot();
     }
 }
