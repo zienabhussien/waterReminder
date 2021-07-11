@@ -15,6 +15,9 @@ public class UserData {
  public static final String WAKEUP_TIME = "wakeupTime";
  public static final String BED_TIME = "bedTime";
  public static final String STATUS = "status";
+ public static final String CUP_SIZE = "cup_size";
+ public static final String PROGRESSBAR_STATUS = "progressbar_status";
+
 
     public UserData(Context context) {
         this.context = context;
@@ -39,6 +42,30 @@ public class UserData {
         user.put(WAKEUP_TIME,mSharedPreferences.getString(WAKEUP_TIME,null));
         return user;
     }
+
+    // save progressbar status
+    public void saveProgressbar_status(int progress){
+
+        editor.putInt(PROGRESSBAR_STATUS,progress);
+        editor.apply();
+    }
+    // get progressbar status
+    public int getProgress_status(){
+     return   mSharedPreferences.getInt(PROGRESSBAR_STATUS,0);
+    }
+
+    // save selected cup size
+    public void saveCupSize(int cupSize){
+        editor.putInt(CUP_SIZE,cupSize);
+        editor.apply();
+    }
+
+    public int getCupSize(){
+        return  mSharedPreferences.getInt(CUP_SIZE,0);
+    }
+
+
+
 
     public boolean isRegistered(){
         return mSharedPreferences.getBoolean(STATUS,false);

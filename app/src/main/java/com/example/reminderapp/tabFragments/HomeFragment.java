@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.adapter.AlarmAdapter;
 import com.example.adapter.Item;
+import com.example.reminderapp.ChooseCupFragment;
 import com.example.reminderapp.databinding.FragmentHomeBinding;
 import com.example.userSession.UserData;
 
@@ -35,7 +37,7 @@ public class HomeFragment extends Fragment {
     private String userGender;
     private int percent = 0;
     private int progressStatus = 0;
-    private int cupSize = 120;  // taken from selection of any cup
+    private int cupSize ;  // taken from selection of any cup
     private long drinkGoal;
     private Handler handler = new Handler();
 
@@ -61,11 +63,6 @@ public class HomeFragment extends Fragment {
         userWeight = Integer.parseInt(hashMap.get(UserData.WEIGHT_KEY));
         userGender = hashMap.get(UserData.GENDER_KEY);
 
-        drinkGoal = (long) ("Male".equals(userGender) ? (userWeight * (0.35)) : (userWeight * (0.31)));
-
-
-        percent = (int) (cupSize / drinkGoal) * 100;
-
 
         binding.currentTime.setText(getCurrentTime());
         binding.addCupBtn.setOnClickListener(v -> {
@@ -73,9 +70,15 @@ public class HomeFragment extends Fragment {
             addItem();
         });
 
+        cupSize = userData.getCupSize();
+        //drinkGoal = (long) ("Male".equals(userGender) ? (userWeight * (0.35)) : (userWeight * (0.31)));
+        drinkGoal = 2400;
+        percent = (int) (cupSize / drinkGoal) * 100;
+
         // choose cup
         binding.chooseCup.setOnClickListener( v->{
-
+            ChooseCupFragment fragmentDialog = new ChooseCupFragment();
+            fragmentDialog.show(getActivity().getSupportFragmentManager(),"Choose cup size");
 
         });
 
@@ -84,6 +87,7 @@ public class HomeFragment extends Fragment {
 
     private void addItem() {
         dataItem.setCurrentTime(getCurrentTime());
+        dataItem.setCupSize(cupSize);
         // add cupSize
         arrayList.add(dataItem);
         alarmAdapter = new AlarmAdapter(arrayList, getActivity());
@@ -99,12 +103,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 if (progressStatus < 100) {
-                    progressStatus += 5;    // progress status will increase by percentage
+                    progressStatus += percent;    // progress status will increase by percentage
+                    userData.saveProgressbar_status(progressStatus);
 
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            binding.progressBar.setProgress(progressStatus);
+                            // get saved progressbar status and set it to progressbar
+                            binding.progressBar.setProgress(userData.getProgress_status());
                         }
                     });
 

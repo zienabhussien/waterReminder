@@ -35,7 +35,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.viewHolder> 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
       holder.currentTV.setText(itemList.get(position).getCurrentTime());
-      holder.cup_sizeTV.setText(itemList.get(position).getCupSize()+"");
+      holder.cup_sizeTV.setText(itemList.get(position).getCupSize()+" ml");
 
 
     }

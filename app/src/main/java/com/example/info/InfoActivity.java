@@ -125,7 +125,7 @@ public class InfoActivity extends AppCompatActivity {
         timePickerDialog.updateTime(bedTimeHour,bedTimeMin);
         timePickerDialog.show();
 
-        setAlarm();
+      //  setAlarm();
     }
 
     private void setWakeupTime(){
@@ -145,7 +145,7 @@ public class InfoActivity extends AppCompatActivity {
            timePickerDialog.updateTime(wakeupTimeHour,wakeupTimeMin);
            timePickerDialog.show();
 
-           setAlarm();
+          // setAlarm();
     }
 
     private void cancelAlarm(){
@@ -160,23 +160,23 @@ public class InfoActivity extends AppCompatActivity {
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap = mUserData.getUserData();
-        bedTime = hashMap.get(UserData.WAKEUP_TIME);
-        wakeupTime = hashMap.get(UserData.WAKEUP_TIME);
+      String  bedTime1 = hashMap.get(UserData.WAKEUP_TIME);
+       String wakeupTime1 = hashMap.get(UserData.WAKEUP_TIME);
 
 
        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
       PendingIntent  alarmIntent = PendingIntent.getBroadcast(getApplicationContext(),1,myIntent,0);
 
 
-        String [] wakeTime = wakeupTime.split(":");
+        String [] wakeTime = wakeupTime1.split(":");
         int wakeHour = Integer.parseInt(wakeTime[0]);
         int wakeMin = Integer.parseInt(wakeTime[1]);
-        String wakeX = wakeupTime.substring(wakeupTime.length()-2);
+        String wakeX = wakeupTime1.substring(wakeupTime1.length()-2);
 
-        String [] sleepTime = bedTime.split(":");
+        String [] sleepTime = bedTime1.split(":");
         int sleepHour = Integer.parseInt(sleepTime[0]);
         int sleepMin = Integer.parseInt(sleepTime[1]);
-        String sleepX = bedTime.substring(bedTime.length()-2);
+        String sleepX = bedTime1.substring(bedTime1.length()-2);
 
         String [] currentTime = currTime.split(":");
         int currHour = Integer.parseInt(currentTime[0]);
@@ -201,7 +201,7 @@ public class InfoActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE,wakeMin);
 
         // here it will work when he wake up and every 90 min
-        if( currHour>=wakeHour  &&  currHour<sleepHour ) {
+        if( currHour >= wakeHour  &&  currHour< sleepHour ) {
             if(currMin>=wakeMin && currMin<sleepMin)
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                         1000 * 60 * 90, alarmIntent);
