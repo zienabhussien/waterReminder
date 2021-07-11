@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.reminderapp.tabFragments.HomeFragment;
+import com.example.reminderapp.tabFragments.SettingFragment;
+
 import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter{
@@ -18,7 +21,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+        if(position == 0)
+            return new HomeFragment();
+        else
+            return new SettingFragment();
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.adapter.AlarmAdapter;
 import com.example.adapter.Item;
@@ -71,8 +72,9 @@ public class HomeFragment extends Fragment {
         });
 
         cupSize = userData.getCupSize();
-        //drinkGoal = (long) ("Male".equals(userGender) ? (userWeight * (0.35)) : (userWeight * (0.31)));
-        drinkGoal = 2400;
+
+        drinkGoal = (long) ("Male".equals(userGender) ? (userWeight * (0.35)) : (userWeight * (0.31)));
+       // drinkGoal = 2400;
         percent = (int) (cupSize / drinkGoal) * 100;
 
         // choose cup
