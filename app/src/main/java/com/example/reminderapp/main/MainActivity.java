@@ -1,9 +1,10 @@
-package com.example.reminderapp;
+package com.example.reminderapp.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.reminderapp.R;
 import com.example.reminderapp.databinding.ActivityMainBinding;
 import com.example.reminderapp.tabFragments.HomeFragment;
 import com.example.reminderapp.tabFragments.SettingFragment;

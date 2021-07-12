@@ -7,22 +7,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.adapter.AlarmAdapter;
 import com.example.adapter.Item;
-import com.example.reminderapp.ChooseCupFragment;
+import com.example.reminderapp.main.ChooseCupFragment;
 import com.example.reminderapp.databinding.FragmentHomeBinding;
+import com.example.reminderapp.room.RoomDB;
 import com.example.userSession.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import static java.lang.String.format;
@@ -33,7 +33,9 @@ public class HomeFragment extends Fragment {
     AlarmAdapter alarmAdapter;
     UserData userData;
     Item dataItem;
-    ArrayList<Item> arrayList;
+    List<Item> arrayList = new ArrayList<>();
+    RoomDB database;
+
     private int userWeight;
     private String userGender;
     private int percent = 0;
@@ -51,11 +53,13 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        // view = inflater.inflate(R.layout.fragment_home, container, false);
+
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
         dataItem = new Item();
-        arrayList = new ArrayList<>();
+
+        // initialize database
+        database = RoomDB.getInstance(getActivity());
+
 
         // get stored user data
         userData = new UserData(getActivity());
@@ -84,17 +88,22 @@ public class HomeFragment extends Fragment {
 
         });
 
+        // get stored data from database
+        arrayList = database.itemDao().getAll();
+        //arrayList.add(dataItem);
+        alarmAdapter = new AlarmAdapter(arrayList, getActivity());
+        binding.recyclerView.setAdapter(alarmAdapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
+                RecyclerView.VERTICAL, false));
+
         return binding.getRoot();
     }
 
     private void addItem() {
         dataItem.setCurrentTime(getCurrentTime());
         dataItem.setCupSize(cupSize);
-        // add cupSize
-        arrayList.add(dataItem);
-        alarmAdapter = new AlarmAdapter(arrayList, getActivity());
-        binding.recyclerView.setAdapter(alarmAdapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        // store item data into database
+        database.itemDao().insert(dataItem);
 
         // Log.d("AA", "addItem: ");
 

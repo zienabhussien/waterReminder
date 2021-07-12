@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.info.InfoActivity;
-import com.example.reminderapp.MainActivity;
+import com.example.reminderapp.main.MainActivity;
 import com.example.reminderapp.R;
 import com.example.userSession.UserData;
 

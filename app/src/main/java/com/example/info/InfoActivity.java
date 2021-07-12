@@ -1,38 +1,27 @@
 package com.example.info;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.UserManager;
-import android.text.format.DateFormat;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.alarm.AlarmReceiver;
-import com.example.reminderapp.MainActivity;
-import com.example.reminderapp.R;
+import com.example.reminderapp.main.MainActivity;
 import com.example.reminderapp.databinding.ActivityInfoBinding;
-import com.example.reminderapp.tabFragments.HomeFragment;
 import com.example.userSession.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-
-import static com.example.reminderapp.R.color.purple_200;
-import static com.example.reminderapp.R.color.purple_700;
 
 public class InfoActivity extends AppCompatActivity {
  ActivityInfoBinding binding;

@@ -1,4 +1,4 @@
-package com.example.reminderapp;
+package com.example.reminderapp.main;
 
 import android.os.Bundle;
 
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.reminderapp.R;
 import com.example.reminderapp.databinding.FragmentChooseCupBinding;
 import com.example.userSession.UserData;
 

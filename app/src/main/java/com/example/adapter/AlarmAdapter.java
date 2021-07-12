@@ -1,7 +1,6 @@
 package com.example.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.reminderapp.R;
+import com.example.reminderapp.room.RoomDB;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.viewHolder> {
- ArrayList<Item> itemList = new ArrayList<>();
+ List<Item> itemList = new ArrayList<>();
  Context mContext;
 
-    public AlarmAdapter(ArrayList<Item> itemList, Context mContext) {
+    public AlarmAdapter(List<Item> itemList, Context mContext) {
         this.itemList = itemList;
         this.mContext = mContext;
+        notifyDataSetChanged();
     }
 
     @Override
