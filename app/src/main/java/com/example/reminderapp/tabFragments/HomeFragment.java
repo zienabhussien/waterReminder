@@ -81,20 +81,21 @@ public class HomeFragment extends Fragment {
        // drinkGoal = 2400;
         percent = (int) (cupSize / drinkGoal) * 100;
 
-        // choose cup
+        // choose cup from the dialog
         binding.chooseCup.setOnClickListener( v->{
             ChooseCupFragment fragmentDialog = new ChooseCupFragment();
             fragmentDialog.show(getActivity().getSupportFragmentManager(),"Choose cup size");
 
         });
 
+
+
         // get stored data from database
         arrayList = database.itemDao().getAll();
         //arrayList.add(dataItem);
         alarmAdapter = new AlarmAdapter(arrayList, getActivity());
         binding.recyclerView.setAdapter(alarmAdapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
-                RecyclerView.VERTICAL, false));
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return binding.getRoot();
     }
@@ -139,4 +140,7 @@ public class HomeFragment extends Fragment {
     private String getCurrentTime() {
         return new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
     }
+
+
 }
+
