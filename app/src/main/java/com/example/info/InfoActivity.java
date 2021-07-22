@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.alarm.AlarmReceiver;
 import com.example.reminderapp.main.MainActivity;
 import com.example.reminderapp.databinding.ActivityInfoBinding;
+import com.example.reminderapp.room.Util;
 import com.example.userSession.UserData;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +50,7 @@ public class InfoActivity extends AppCompatActivity {
          // getGender();
           getWeight();
 
-        cancelAlarm();
+          cancelAlarm();
 
 
         binding.wakeupTimeTv.setOnClickListener(v ->{
@@ -140,17 +141,8 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private void setAlarm(){
-        String currTime = getCurrTimeIn_24Hour();
-
        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
       PendingIntent  alarmIntent = PendingIntent.getBroadcast(getApplicationContext(),1,myIntent,0);
-
-
-
-        String [] currentTime = currTime.split(":");
-        int currHour = Integer.parseInt(currentTime[0]);
-        int currMin = Integer.parseInt(currentTime[1]);
-
 
         // TYPE OF ALARM
         Calendar calendar = Calendar.getInstance();
@@ -160,19 +152,9 @@ public class InfoActivity extends AppCompatActivity {
 
         // here it will work when he wake up and every 90 min
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                        1000 * 60 * 1, alarmIntent);
-
+                        1000 * 60 * 90, alarmIntent);
 
     }
 
-    private String getCurrentTime(){
-        return new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
-    }
-
-    private String getCurrTimeIn_24Hour() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        return simpleDateFormat.format(calendar.getTime());
-    }
 
   }
