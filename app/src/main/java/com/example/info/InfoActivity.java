@@ -55,21 +55,18 @@ public class InfoActivity extends AppCompatActivity {
         binding.wakeupTimeTv.setOnClickListener(v ->{
                   setWakeupTime();
           });
-          //we can get wakeup time from text
-          wakeupTime = binding.wakeupTimeTv.getText().toString();
 
         binding.bedTimeTv.setOnClickListener(v ->{
             setBedTime();
         });
-        //we can get bed time from text
-        bedTime = binding.bedTimeTv.getText().toString();
 
         binding.startBtn.setOnClickListener(v ->{
             // save data to shared preferences
+            wakeupTime = binding.wakeupTimeTv.getText().toString();
+            bedTime = binding.bedTimeTv.getText().toString();
             getGender();
            mUserData.saveData( gender,weight+"", bedTime, wakeupTime,true);
-            Toast.makeText(getApplicationContext(),"wakeupTime  ="+wakeupTime+", bedTime ="+bedTime,
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"wakeupTime  ="+ wakeupTime +", bedTime ="+bedTime, Toast.LENGTH_SHORT).show();
             setAlarm();
             startActivity(new Intent(InfoActivity.this, MainActivity.class));
             finish();
@@ -162,11 +159,9 @@ public class InfoActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE,wakeupTimeMin);
 
         // here it will work when he wake up and every 90 min
-        if( currHour >= wakeupTimeHour  &&  currHour< bedTimeHour ) {
-            if(currMin>=wakeupTimeMin && currMin<bedTimeMin)
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                        1000 * 60 * 90, alarmIntent);
-        }
+                        1000 * 60 * 1, alarmIntent);
+
 
     }
 

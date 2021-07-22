@@ -49,7 +49,7 @@ public class ChooseCupFragment extends DialogFragment {
            }
            // save choosen cup size to shared preferences
            userData.saveCupSize(cupSize);
-           Toast.makeText(getActivity(),userData.getCupSize()+"ml",Toast.LENGTH_LONG).show();
+          // Toast.makeText(getActivity(),userData.getCupSize()+"ml",Toast.LENGTH_LONG).show();
              dismiss();
        });
 

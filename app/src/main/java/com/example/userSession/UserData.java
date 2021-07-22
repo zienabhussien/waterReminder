@@ -61,7 +61,7 @@ public class UserData {
     }
 
     public int getCupSize(){
-        return  mSharedPreferences.getInt(CUP_SIZE,0);
+        return  mSharedPreferences.getInt(CUP_SIZE,50);
     }
 
 

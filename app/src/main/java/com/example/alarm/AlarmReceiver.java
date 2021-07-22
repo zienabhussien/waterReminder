@@ -19,6 +19,7 @@ import com.example.reminderapp.R;
 import com.example.reminderapp.tabFragments.HomeFragment;
 import com.example.userSession.UserData;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver {
  private PendingIntent alarmIntent;
  private String CHANNEL_ID = "channelId";
     NotificationManager notificationManager;
-    private String currTime = getCurrentTime();
+    private String currTime = getCurrTimeIn_24Hour();
     private String bedTime, wakeupTime;
 
     @Override
@@ -63,41 +64,49 @@ public class AlarmReceiver extends BroadcastReceiver {
        String [] wakeTime = wakeupTime.split(":");
        int wakeHour = Integer.parseInt(wakeTime[0]);
        int wakeMin = Integer.parseInt(wakeTime[1]);
-       String wakeX = wakeupTime.substring(wakeupTime.length()-2);
 
         String [] sleepTime = bedTime.split(":");
         int sleepHour = Integer.parseInt(sleepTime[0]);
         int sleepMin = Integer.parseInt(sleepTime[1]);
-        String sleepX = bedTime.substring(bedTime.length()-2);
 
         String [] currentTime = currTime.split(":");
         int currHour = Integer.parseInt(currentTime[0]);
         int currMin = Integer.parseInt(currentTime[1]);
-        String currX = currTime.substring(currTime.length()-2);
-
-        if(wakeX.equals("pm")){
-            wakeHour +=12;
-        }
-        if(sleepX.equals("pm")){
-            sleepHour +=12;
-        }
-        if(currX.equals("pm")){
-            currHour +=12;
-        }
 
 
-        // TYPE OF ALARM
+
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,wakeHour);
-        calendar.set(Calendar.MINUTE,wakeMin);
 
-        // here it will work when he wake up and every 90 min
-        if( currHour>=wakeHour  &&  currHour<sleepHour ) {
-            if(currMin>=wakeMin && currMin<sleepMin)
 
-            notificationManager.notify(1,builder.build());
+        try {
+            Date time1 = new SimpleDateFormat("HH:ss").parse(bedTime);
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(time1);
+            calendar1.add(Calendar.DATE, 1);
+
+
+            Date time2 = new SimpleDateFormat("HH:ss").parse(wakeupTime);
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(time2);
+            calendar2.add(Calendar.DATE, 1);
+
+
+            Date time3 = new SimpleDateFormat("HH:ss").parse(currTime);
+            Calendar calendar3 = Calendar.getInstance();
+            calendar3.setTime(time3);
+            calendar3.add(Calendar.DATE, 1);
+            Date current = calendar3.getTime();
+
+            if(current.before(calendar1.getTime()) && current.before(calendar2.getTime())){
+                notificationManager.notify(1,builder.build());
+
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
+
 
 
         // Create notification channel
@@ -113,10 +122,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(notificationChannel);
         }
 
-
-
-
-
     }
 
 
@@ -124,4 +129,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     private String getCurrentTime(){
         return new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
     }
+
+    private String getCurrTimeIn_24Hour() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        return simpleDateFormat.format(calendar.getTime());
+    }
+
+
 }

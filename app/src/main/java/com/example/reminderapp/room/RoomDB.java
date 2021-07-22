@@ -5,10 +5,13 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
-import com.example.adapter.Item;
+import com.example.adapter.DayLog;
 
-@Database(entities = {Item.class},version = 1)
+@Database(entities = {DayLog.class},version = 1)
+@TypeConverters(Converter.class)
 public abstract class RoomDB extends RoomDatabase {
     // create database instance
    private static RoomDB database;
